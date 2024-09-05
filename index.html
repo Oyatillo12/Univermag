@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <style type="text/tailwindcss">
+        @layer utilities {
+          .content-auto {
+            content-visibility: auto;
+          }
+        }
+      </style>
+</head>
+<body>
+    <div class="loading-wrapper backdrop-blur flex items-center justify-center fixed inset-0">
+        <img src="./images/loading.png" alt="Loading Img" width="180">
+    </div>
+
+    
+    <div class="w-full py-6 bg-whita shadow-lg rounded-b-[12px] mb-[70px]">
+        <h1 class="text-[35px] font-bold text-black text-center "><span class="text-yellow-500">UNIVER</span>MAG</h1>
+    </div>
+    
+    
+    <ul class="products-list flex flex-wrap pb-[60px] justify-center items-center gap-5"></ul>  
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+        theme: {
+            extend: {
+            colors: {
+                clifford: '#da373d',
+            }
+            }
+        }
+        }
+    </script>
+
+ 
+</body>
+</html>
