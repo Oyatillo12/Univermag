@@ -1,0 +1,7 @@
+input:focus + img{
+    opacity: 0 !important;
+    transition: 0.4s;
+}
+input{
+    transition: 1s linear;
+}

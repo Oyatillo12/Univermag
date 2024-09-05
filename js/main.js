@@ -1,11 +1,35 @@
 let elProductList = document.querySelector(".products-list");
 let elLoaindgWrapper = document.querySelector(".loading-wrapper");
+
+let searchInput = document.querySelector(".search-input");
+let lupaImg = document.querySelector(".lupa-img")
+let closeImg = document.querySelector(".close-img")
+let elSpan = document.querySelector(".border-right")
+let elPopaplist = document.querySelector(".popap-list");
+
 setTimeout(() => elLoaindgWrapper.classList.add("hidden"),1000)
 
-function getProduct(){
+searchInput.addEventListener("click", () =>{
+    searchInput.classList.add("w-[90%]");
+    searchInput.classList.add("pr-[75px]");
+    lupaImg.classList.add("hidden");
+    setTimeout(() => {
+        elSpan.classList.remove("hidden");
+        closeImg.classList.remove("hidden");
+    }, 1000)
+    
+})
+closeImg.addEventListener("click", () =>{
+    searchInput.classList.remove("w-[90%]");
+    searchInput.classList.remove("pr-[75px]");
+    elSpan.classList.add("hidden");
+    closeImg.classList.add("hidden");
+    setTimeout(() => lupaImg.classList.remove("hidden"),800)
+})
 
-    axios("https://dummyjson.com/products").then(res => {
-        res.data.products.forEach(product => {
+function getProduct(arr){
+    elProductList.innerHTML = null;
+        arr.forEach(product => {
             let li = document.createElement("li");
             li.className = "w-[400px] rounded-xl bg-white shadow-2xl p-3"
             li.innerHTML = `
@@ -22,9 +46,8 @@ function getProduct(){
             elProductList.appendChild(li);
         })
         
-    })
 }
-getProduct()
+axios("https://dummyjson.com/products").then(res => { getProduct(res.data.products) });
 
 
 
@@ -52,3 +75,58 @@ function sendToChatBot(id){
         alert("Your shopping is successfully")
     })
 }
+
+
+// search part start
+
+searchInput.addEventListener("input", function(e){
+    elPopaplist.innerHTML = null
+    let searchQuery = e.target.value.toLowerCase()
+    axios.get("https://dummyjson.com/products").then(res => {
+        const filteredProducts = res.data.products.filter(item => item.title.toLowerCase().includes(searchQuery))
+        if(searchInput.value == ""){
+            getProduct(res.data.products)
+        }
+        else{
+            if(filteredProducts.length && searchQuery){
+                elPopaplist.classList.remove("h-0")
+                elPopaplist.classList.remove("p-0")
+                elPopaplist.classList.add("p-2")
+
+                filteredProducts.forEach(product => {
+                    let li = document.createElement("li");
+                    li.id = product.id;
+                    li.className = "text-lg line-clamp-1 rounded-lg px-2 font-bold text-black hover:bg-gray-300 duration-300 py-2"
+                    li.innerHTML = product.title
+
+                    elPopaplist.appendChild(li)
+                    
+                    li.addEventListener("click", function(e){
+                        let findedProduct = res.data.products.find(item => item.id == e.target.id);
+                        searchInput.value = findedProduct.title 
+                        getProduct([findedProduct])
+                        elPopaplist.classList.remove("p-2")
+                        elPopaplist.classList.add("h-0")
+                        elPopaplist.classList.add("p-0")
+                    })
+                    
+                })
+            }
+            else{
+                elPopaplist.classList.remove("p-2")
+                elPopaplist.classList.add("h-0")
+            }
+        }
+    })
+
+})
+
+searchInput.addEventListener("blur", function(){
+    setTimeout(() => {
+        elPopaplist.classList.add("h-0")
+       elPopaplist.classList.add("p-0")
+       elPopaplist.classList.remove("p-2")
+       }, 400)
+})
+
+// search part end

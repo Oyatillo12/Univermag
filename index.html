@@ -11,9 +11,10 @@
           }
         }
       </style>
+      <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-    <div class="loading-wrapper backdrop-blur flex items-center justify-center fixed inset-0">
+    <div class="loading-wrapper z-50 backdrop-blur-xl flex items-center justify-center fixed inset-0">
         <img src="./images/loading.png" alt="Loading Img" width="180">
     </div>
 
@@ -21,7 +22,18 @@
     <div class="w-full py-6 bg-whita shadow-lg rounded-b-[12px] mb-[70px]">
         <h1 class="text-[35px] font-bold text-black text-center "><span class="text-yellow-500">UNIVER</span>MAG</h1>
     </div>
-    
+    <div class="relative ml-[200px] mb-[80px] w-[480px]">
+        <label>
+            <input class="search-input bg-slate-200 text-[20px] w-0 outline-none rounded-full py-7 px-10 cursor-pointer " type="search" placeholder="Searching products..." autocomplete="off" name="searching" aria-label="Searching">
+            <span class="w-[2px] hidden duration-800 border-right absolute right-[110px] top-[30px]  h-[30px] bg-red-200 inline-block"></span>
+            <img class="lupa-img absolute  left-[10px] top-[15px] duration-400 inline-block" src="./images/search.svg" alt="search img" width="50" height="50">
+            <button class="close-img hidden duration-900">
+                <img class="absolute right-[60px] top-[25px]" src="./images/close.svg" alt="close img" width="40" height="40">
+            </button>
+            
+        </label>
+        <ul class="popap-list space-y-2 top mx-auto absolute overflow-hidden h-0 p-0  bg-white rounded-lg shadow-lg w-[80%]"></ul>
+    </div>
     
     <ul class="products-list flex flex-wrap pb-[60px] justify-center items-center gap-5"></ul>  
 
